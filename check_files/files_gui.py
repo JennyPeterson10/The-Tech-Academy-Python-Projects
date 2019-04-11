@@ -15,10 +15,10 @@ def load_gui(self):
     #self.lbl_files.grid(row=0, column=0,padx=(0,0),pady=(0,0))
 
     # Define buttons
-    self.btn_browse = tk.Button(self.master,width=24,height=1,text='Browse source directory...',command=lambda: files_func.openDir(self))
-    self.btn_browse.grid(row=0,column=0,padx=(20,0),pady=(40,0),sticky=W)
-    self.btn_browse2 = tk.Button(self.master,width=24,height=1,text='Browse destination directory...',command=lambda: files_func.openDir2(self))
-    self.btn_browse2.grid(row=1,column=0,padx=(20,0),pady=(10,0),sticky=W)
+    self.btn_source = tk.Button(self.master,width=24,height=1,text='Browse source directory...',command=lambda: files_func.findSource(self))
+    self.btn_source.grid(row=0,column=0,padx=(20,0),pady=(40,0),sticky=W)
+    self.btn_destination = tk.Button(self.master,width=24,height=1,text='Browse destination directory...',command=lambda: files_func.findDestination(self))
+    self.btn_destination.grid(row=1,column=0,padx=(20,0),pady=(10,0),sticky=W)
     self.btn_check = tk.Button(self.master,width=12,height=2,text='Check for files...',command=lambda: files_func.checkFiles(self))
     self.btn_check.grid(row=2,column=0,rowspan=2,padx=(20,0),pady=(10,0),sticky=W)
     self.btn_close = tk.Button(self.master,width=12,height=2,text='Close Program',command=lambda: files_func.close(self))
@@ -27,10 +27,10 @@ def load_gui(self):
 
 
     # Define browse fields
-    self.txt_browse = tk.Entry(self.master,text='',width=45)
-    self.txt_browse.grid(row=0,column=1,rowspan=1,columnspan=2,padx=(20,0),pady=(40,0),sticky=E+W)
-    self.txt_browse2 = tk.Entry(self.master,text='',width=45)
-    self.txt_browse2.grid(row=1,column=1,rowspan=1,columnspan=2,padx=(20,0),pady=(10,0),sticky=E+W)
+    self.txt_source = tk.Entry(self.master,text='',width=45)
+    self.txt_source.grid(row=0,column=1,rowspan=1,columnspan=2,padx=(20,0),pady=(40,0),sticky=E+W)
+    self.txt_destination = tk.Entry(self.master,text='',width=45)
+    self.txt_destination.grid(row=1,column=1,rowspan=1,columnspan=2,padx=(20,0),pady=(10,0),sticky=E+W)
 
 
 

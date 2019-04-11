@@ -11,8 +11,6 @@ from tkinter import messagebox
 import files_main
 import files_gui
 
-
-
 def center_window(self, w, h): # pass in the tkinter frame (master) reference and the w and h
     # get user's screen width and height
     screen_width = self.master.winfo_screenwidth()
@@ -35,39 +33,42 @@ def close(self):
         self.master.destroy()
         os._exit(0)
 
-def openDir(self):
-    root = Tk()
-    root.directory = askdirectory(title="choose folder",initialdir="..\\")
-    self.txt_browse.delete(0,END) # clears the entry if it is currently populated
-    self.txt_browse.insert(0,root.directory)
+def findSource(self):
+    source = askdirectory(title="Select Source Directory",initialdir="..\\")
+    self.txt_source.delete(0,END) # clears the entry if it is currently populated
+    self.txt_source.insert(0,source)
 
-def openDir2(self):
-    root = Tk()
-    root.directory = askdirectory(title="choose folder",initialdir="..\\")
-    self.txt_browse2.delete(0,END) # clears the entry if it is currently populated
-    self.txt_browse2.insert(0,root.directory)
+def findDestination(self):
+    destination = askdirectory(title="Select Destination Directory",initialdir="..\\")
+    self.txt_destination.delete(0,END) # clears the entry if it is currently populated
+    self.txt_destination.insert(0,destination)
 
 def checkFiles(self):
     create_db(self)
-    path = self.txt_browse.get()
-    dst = self.txt_browse2.get()
-    dir = os.listdir(path)
-    doctime = time.ctime(os.path.getmtime(path))
-    for file in dir:  
-        if file.endswith(".txt"):
-            txt_dir = os.path.join(path,file)
-            txt_file = file
-            print(txt_file,doctime)
-            shutil.move(txt_dir,dst)
-            conn = sqlite3.connect('db_files.db')
-            with conn:
-                cur = conn.cursor()
-                cur.execute("""INSERT INTO tbl_files (col_file,col_time) VALUES (?,?)""",(txt_file,doctime))
-                conn.commit()
-            conn.close()
-    
-    self.txt_browse.delete(0,END) # clears the entry in the directory text boxes
-    self.txt_browse2.delete(0,END)
+    src = self.txt_source.get()
+    dst = self.txt_destination.get()
+    dir = os.listdir(src)
+    doctime = time.ctime(os.path.getmtime(src))
+    if src == dst:
+        messagebox.showerror("Check Directories","Please select a different destination than source.")
+        self.txt_destination.delete(0,END)
+    else:
+        for file in dir:  
+            if file.endswith(".txt"):
+                txt_dir = os.path.join(src,file)
+                txt_file = file
+                print(txt_file,doctime)
+                shutil.move(txt_dir,dst)
+                conn = sqlite3.connect('db_files.db')
+                with conn:
+                    cur = conn.cursor()
+                    cur.execute("""INSERT INTO tbl_files (col_file,col_time) VALUES (?,?)""",(txt_file,doctime))
+                    conn.commit()
+                conn.close()
+        
+        self.txt_source.delete(0,END) # clears the entry in the directory text boxes
+        self.txt_destination.delete(0,END)
+
 
 
 def create_db(self):

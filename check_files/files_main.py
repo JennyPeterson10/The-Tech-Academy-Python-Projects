@@ -17,7 +17,7 @@ class ParentWindow(Frame):
         self.master.maxsize(500,200)
         # This CenterWindow method will center our app on the user's screen
         files_func.center_window(self,500,200)
-        self.master.title("Check files")
+        self.master.title("Move Files")
         self.master.configure(bg="#F0F0F0")
         # This protocol method is a tkinter built-in method to catch if 
         # the user clicks the upper corner, "X" on Windows OS.
@@ -28,8 +28,7 @@ class ParentWindow(Frame):
         # keeping your code comparmentalized and clutter free
         files_gui.load_gui(self)
         
-
-        
+    
 
 if __name__ == "__main__":
     root = tk.Tk()
